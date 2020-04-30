@@ -262,6 +262,8 @@ if (isset($_GET['fund'])) {
     $obj->setBasic($basic, $fund);
     $obj->setSalary();
     echo "DONE<br>";
+    echo "input Company Fund : " . $fund . '<br>';
+    echo "lowest basic : " . $basic . '<br>';
     echo '<a href="index.php">go home</a>';
 
 } else {
