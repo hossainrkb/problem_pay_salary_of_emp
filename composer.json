@@ -14,5 +14,8 @@
             "App\\": "app"
         }
     },
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "symfony/var-dumper": "^5.2@dev"
+    }
 }
