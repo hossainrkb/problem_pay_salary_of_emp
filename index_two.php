@@ -188,12 +188,10 @@ class Demo
     {
         if (((int) ($basic) != 0) && ((int) ($company_fund) != 0)) {
             for ($i = count($this->grades) - 1; $i >= 0; $i--) {
-                // echo $this->grades['company_fund'];
                 if (isset($this->grades[$i]['company_fund'])) {
                     $this->grades[$i]['company_fund'] = $company_fund;
                     continue;
                 } else {
-                    // echo $i;
                     $newArr = ['basic' => $basic];
                     array_push($this->grades[$i], $newArr);
                     $basic = $basic + 500;
@@ -216,18 +214,21 @@ class Demo
                         if (isset($emp_value['bank_account']['current_balance'])) {
                             $current_balance = $emp_value['bank_account']['current_balance'];
                         }
-                        $house_rent = $basic * (20 / 100);
-                        $medical_allowance = $basic * (15 / 100);
-                        $total_salary = $basic + $house_rent + $medical_allowance;
-                        if ($fund < $total_salary) {
-                            $fund = $fund + 50000;
-                            $this->grades[$key]['emp'][$emp]["bank_account"]['current_balance'] = $current_balance + $total_salary;
-                            $this->grades[$key]['emp'][$emp]["bank_account"]['your_salary'] = $total_salary;
-                        } else {
-                            $this->grades[$key]['emp'][$emp]["bank_account"]['current_balance'] = $current_balance + $total_salary;
-                            $this->grades[$key]['emp'][$emp]["bank_account"]['your_salary'] = $total_salary;
+                        if (isset($basic) && is_numeric($basic)) {
+                            // dump($basic);
+                            $house_rent = $basic * (20 / 100);
+                            $medical_allowance = $basic * (15 / 100);
+                            $total_salary = $basic + $house_rent + $medical_allowance;
+                            if ($fund < $total_salary) {
+                                $fund = $fund + 50000;
+                                $this->grades[$key]['emp'][$emp]["bank_account"]['current_balance'] = $current_balance + $total_salary;
+                                $this->grades[$key]['emp'][$emp]["bank_account"]['your_salary'] = $total_salary;
+                            } else {
+                                $this->grades[$key]['emp'][$emp]["bank_account"]['current_balance'] = $current_balance + $total_salary;
+                                $this->grades[$key]['emp'][$emp]["bank_account"]['your_salary'] = $total_salary;
+                            }
+                            $fund = $fund - $total_salary;
                         }
-                        $fund = $fund - $total_salary;
                     }
                 }
             }
@@ -246,7 +247,7 @@ if (isset($_GET['fund'])) {
     echo "DONE<br>";
     echo "input Company Fund : " . $fund . '<br>';
     echo "lowest basic : " . $basic . '<br>';
-    echo '<a href="index.php">go home</a>';
+    echo '<a href="index_two.php">go home</a>';
 } else {
     $obj = new Demo();
     $obj->setBasicnCfund("demo", "demo");
